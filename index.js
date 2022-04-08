@@ -1,6 +1,5 @@
 const seasonList = document.querySelector("#season-list")
 const seasons = [1, 2, 3, 4, 5]
-console.log(seasonList)
 
 seasons.forEach(season => {
     seasonList.append(createLi(season))
