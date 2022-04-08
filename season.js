@@ -54,9 +54,9 @@ function episodeSeasonFilter(number) {
     }
 }
 
-// if (currentSeason === 1) {
-//     return episode.id < (episodeSeasonFilter(+currentSeason)) === true
-// }
-//             else if (currentSeason === 2) {
-//                 return ((episode.id < (episodeSeasonFilter(currentSeason))) === true && (episode.id > (episodeSeasonFilter((+currentSeason - 1))) === true))
-//             }
+if (currentSeason === 1) {
+    return episode.id < (episodeSeasonFilter(+currentSeason)) === true
+}
+else if (currentSeason === 2) {
+    return ((episode.id < (episodeSeasonFilter(currentSeason))) === true && (episode.id > (episodeSeasonFilter((+currentSeason - 1))) === true))
+}
