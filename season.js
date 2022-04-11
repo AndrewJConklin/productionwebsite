@@ -10,7 +10,6 @@ fetch(url)
     .then(parsedResponse => parsedResponse.filter(episode => {
         return episode.season === +currentSeason === true
     }).map(filteredEpisode => {
-        console.log(filteredEpisode)
         return createLi(filteredEpisode)
     }).forEach(episodeLi => {
         episodeList.append(episodeLi)
@@ -25,12 +24,15 @@ function createLi(episode) {
     const li = document.createElement("li")
     li.innerHTML = `
     <div class="episode-listing">
-        <h3>${episode.name}</h3>
         <figure>
-            <figcaption> Original Airdate ${episode.airdate}</figcaption>
-            <img src="${episode.image.medium}"/>
-                <a></a>
-            </img>
+            <figcaption>
+                <a href="episode.html?season=${currentSeason}&episode=${episode.number}">Episode ${episode.number} - ${episode.name}</a>
+            </figcaption>
+            <a href="episode.html?season=${currentSeason}&episode=${episode.number}">
+                <img src="${episode.image.original}"/></img>
+            </a>
+            <p class="episode-description">${episode.summary}
+            </p>
         </figure>
     </div>`
     return li
