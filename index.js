@@ -1,9 +1,17 @@
 const seasonList = document.querySelector("#season-list")
 const seasons = [1, 2, 3, 4, 5]
+altAPIUrl = "https://api.tvmaze.com/lookup/shows?imdb=tt2861424"
 
 seasons.forEach(season => {
     seasonList.append(createLi(season))
 });
+
+fetchAndParse(altAPIUrl).then(response => {
+    const summary = response.summary
+    console.log(response)
+    const div = document.querySelector("#summary")
+    div.innerHTML = `${summary}`
+})
 
 function createLi(season) {
     const li = document.createElement("li")
@@ -16,4 +24,8 @@ function createLi(season) {
         </figure>
     </div>`
     return li
+}
+
+function fetchAndParse(url) {
+    return fetch(url).then(response => response.json())
 }
