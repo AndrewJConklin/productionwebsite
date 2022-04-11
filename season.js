@@ -1,4 +1,3 @@
-const url = "https://rickandmortyapi.com/api"
 const episodesUrls = ["https://rickandmortyapi.com/api/episode", "https://rickandmortyapi.com/api/episode?page=2", "https://rickandmortyapi.com/api/episode?page=3"]
 const seasons = [1, 2, 3, 4, 5]
 const episodeList = document.querySelector(".episodes")
@@ -8,27 +7,10 @@ const navigatedURl = new URL(window.location)
 const queryString = new URLSearchParams(navigatedURl.search)
 const currentSeason = queryString.get("season")
 
-const allepisodes = []
-
-episodesUrls.forEach(episodesUrl => {
-    fetch(episodesUrl)
-        .then(response => {
-            return response.json()
-        }).then(parsedResponse => {
-            allepisodes.push(...parsedResponse.results)
-        })
-})
-
-fetch(url)
-    .then(reponse => {
-        return reponse.json()
-    }).then(parsedResponse => {
-        const episodesUrl = parsedResponse.episodes
-        fetch(episodesUrl).then(fetchedUrl => {
-            return fetchedUrl.json()
-        }).then(parsedResponse => {
-            console.log(parsedResponse)
-            const filteredEpisodes = episodeSeasonFilter(allepisodes)
+fetchAllEpisodesUrls(episodesUrls)
+    .then(fetches => {
+        fetches.forEach(fetch => {
+            filteredEpisodes = episodeSeasonFilter(fetch.results)
             filteredEpisodes.map(episode => {
                 return createLi(episode)
             }).forEach(episodeLi => {
@@ -39,6 +21,12 @@ fetch(url)
 
 const header = document.querySelector("#season-header")
 header.textContent = `Season ${currentSeason}`
+
+function fetchAllEpisodesUrls(episodesUrls) {
+    const episodesFetches = episodesUrls.map(url => fetch(url)
+        .then(response => response.json()))
+    return Promise.all(episodesFetches)
+}
 
 function createLi(episode) {
     const li = document.createElement("li")
@@ -72,3 +60,7 @@ function episodeSeasonFilter(episodeArray) {
         }
     })
 }
+
+// function fetchAndParse(url) {
+//     return fetch(url).then(response => response.json())
+// }
