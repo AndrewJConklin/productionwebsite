@@ -144,3 +144,7 @@ p {
 .hidden {
     visibility: hidden;
 }
+
+.remove {
+    display: none;
+}

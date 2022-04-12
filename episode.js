@@ -19,6 +19,8 @@ fetch(url)
 fetch(`https://rickandmortyapi.com/api/episode/${episodeIdMap(currentSeason, currentEpisode)}`)
     .then(response => response.json())
     .then(parsedResponse => {
+        const loader = document.querySelector(".loader")
+        loader.classList.add("remove")
         const characterUrls = parsedResponse.characters
         const characterFetches = characterUrls
             .map(characterUrl => fetch(characterUrl).then(response => response.json()))

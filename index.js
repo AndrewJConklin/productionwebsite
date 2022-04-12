@@ -10,6 +10,8 @@ fetchAndParse(url).then(response => {
     const summary = response.summary
     const div = document.querySelector("#summary")
     div.innerHTML = `${summary}`
+    const loader = document.querySelector(".loader")
+    loader.classList.add("remove")
 })
 
 function createLi(season) {

@@ -7,13 +7,15 @@ const currentSeason = queryString.get("season")
 
 fetch(url)
     .then(response => response.json())
-    .then(parsedResponse => parsedResponse
-        .filter(episode => {
+    .then(parsedResponse =>
+        parsedResponse.filter(episode => {
             return episode.season === +currentSeason === true
         }).map(filteredEpisode => {
             return createLi(filteredEpisode)
         }).forEach(episodeLi => {
             episodeList.append(episodeLi)
+            const loader = document.querySelector(".loader")
+            loader.classList.add("remove")
         })
     )
 
