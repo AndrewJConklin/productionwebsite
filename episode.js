@@ -16,7 +16,7 @@ fetch(url)
     })
 
 
-fetch(`https://rickandmortyapi.com/api/episode/${currentEpisode}`)
+fetch(`https://rickandmortyapi.com/api/episode/${episodeIdMap(currentSeason, currentEpisode)}`)
     .then(response => response.json())
     .then(parsedResponse => {
         const characterUrls = parsedResponse.characters
@@ -51,4 +51,22 @@ function createLi(character) {
         </figure>
     </div>`
     return li
+}
+
+function episodeIdMap(season, episodeNumber) {
+    if (+currentSeason === 1) {
+        return +currentEpisode
+    }
+    else if (+currentSeason === 2) {
+        return (+currentEpisode + 11)
+    }
+    else if (+currentSeason === 3) {
+        return (+currentEpisode + 21)
+    }
+    else if (+currentSeason === 4) {
+        return (+currentEpisode + 31)
+    }
+    else {
+        return (+currentEpisode + 41)
+    }
 }
