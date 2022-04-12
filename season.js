@@ -1,4 +1,4 @@
-const episodeList = document.querySelector(".episodes")
+const episodeList = document.querySelector("#episode-list")
 const url = "https://api.tvmaze.com/shows/216/episodes"
 
 const navigatedURl = new URL(window.location)
@@ -31,8 +31,7 @@ function createLi(episode) {
             <a href="episode.html?season=${currentSeason}&episode=${episode.number}">
                 <img src="${episode.image.original}"/></img>
             </a>
-            <p class="episode-description">${episode.summary}
-            </p>
+            ${episode.summary}
         </figure>
     </div>`
     return li

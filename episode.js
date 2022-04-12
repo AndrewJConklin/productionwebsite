@@ -1,6 +1,6 @@
 const url = "https://api.tvmaze.com/shows/216/episodes"
 const altUrlBase = "https://rickandmortyapi.com/api/episode"
-const characterList = document.querySelector("#characters")
+const characterList = document.querySelector(".characters")
 const navigatedURl = new URL(window.location)
 const queryString = new URLSearchParams(navigatedURl.search)
 const currentSeason = queryString.get("season")
@@ -32,7 +32,7 @@ fetch(`https://rickandmortyapi.com/api/episode/${currentEpisode}`)
     )
 
 function createDiv(episode) {
-    const div = document.querySelector(".episode-info")
+    const div = document.querySelector("#episode-info")
     div.innerHTML = `
         <h2>Episode ${currentEpisode} - ${episode.name} </h2>
         <img src="${episode.image.original}"/></img>

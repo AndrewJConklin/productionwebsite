@@ -1,5 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Puddles&display=swap');
+
 * {
-    background-color: aquamarine;
+    background-image: url(./assets/background.png);
+    color: hsl(188, 99%, 60%);
+    text-shadow: 1px 1px 2px #6DC542
+}
+
+header {
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+h1 {
+    margin: 12px;
+}
+
+h1 a {
+    text-decoration: none;
+    color: #B1DA2C;
+    font-family: 'Rubik Puddles', cursive;
+    padding: 12px;
+    font-size: 48px;
+    text-shadow: 10px 10px 10px hsl(188, 99%, 60%);
+    border: 2px ridge white;
+}
+
+h2 {
+    font-size: 36px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+}
+
+#summary {
+    display: flex;
+    justify-content: center;
+}
+
+p {
+    width: 60%;
 }
 
 #season-list {
@@ -7,4 +54,74 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repate(3, 1fr);
+    text-align: center;
+}
+
+#season-list div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#season-list img {
+    width: 400px;
+    height: 535px;
+}
+
+#season-list a {
+    font-size: 24px;
+}
+
+#episode-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    list-style: none;
+}
+
+#episode-list img {
+    width: 400px;
+    height: 240px;
+    margin: 20px;
+}
+
+.episode-listing figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.episode-listing figcaption {
+    font-size: 24px;
+}
+
+#episode-info {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#episode-info img {
+    width: 500px;
+}
+
+#character-info h2 {
+    text-align: center;
+}
+
+.characters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.characters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.character-listing figcaption {
+    width: 300px;
+    font-size: 24px;
+    text-align: center;
 }
