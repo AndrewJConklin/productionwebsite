@@ -7,13 +7,14 @@ const currentSeason = queryString.get("season")
 
 fetch(url)
     .then(response => response.json())
-    .then(parsedResponse => parsedResponse.filter(episode => {
-        return episode.season === +currentSeason === true
-    }).map(filteredEpisode => {
-        return createLi(filteredEpisode)
-    }).forEach(episodeLi => {
-        episodeList.append(episodeLi)
-    })
+    .then(parsedResponse => parsedResponse
+        .filter(episode => {
+            return episode.season === +currentSeason === true
+        }).map(filteredEpisode => {
+            return createLi(filteredEpisode)
+        }).forEach(episodeLi => {
+            episodeList.append(episodeLi)
+        })
     )
 
 
@@ -36,3 +37,26 @@ function createLi(episode) {
     </div>`
     return li
 }
+
+const next = document.querySelector("#next")
+const previous = document.querySelector("#previous")
+next.addEventListener("click", event => {
+    event.preventDefault()
+    location.href = `season.html?season=${(+currentSeason + 1)}`
+})
+
+previous.addEventListener("click", event => {
+    event.preventDefault()
+    location.href = `season.html?season=${(+currentSeason - 1)}`
+})
+
+function buttonHider() {
+    if (+currentSeason === 5) {
+        next.classList.add("hidden")
+    }
+    else if (+currentSeason === 1) {
+        previous.classList.add("hidden")
+    }
+}
+
+buttonHider()

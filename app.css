@@ -38,6 +38,7 @@ main {
     align-items: center;
     width: 80%;
     margin: auto;
+    margin-top: 24px;
 }
 
 #summary {
@@ -47,6 +48,20 @@ main {
 
 p {
     width: 60%;
+}
+
+#secondary-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
 }
 
 #season-list {
@@ -124,4 +139,8 @@ p {
     width: 300px;
     font-size: 24px;
     text-align: center;
+}
+
+.hidden {
+    visibility: hidden;
 }
