@@ -89,8 +89,8 @@ function redirect() {
 
 const form = document.querySelector("form")
 form.innerHTML = `
-    <label for="episode-dropdown"></label>
-    <select id="episode-dropdown" name="episode-dropdown">
+    <label for="episode-selector">Episode Selector</label>
+    <select id="episode-selector" name="episode-selector">
     <option value="select" disabled selected> Select an episode</option>
         <optgroup label="Season 1"> 
             <option value="1-1">Episode 1</option>

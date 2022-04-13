@@ -19,7 +19,7 @@ function createLi(season) {
         <figure>
             <figcaption><a href="season.html?season=${season}">Season ${season}</a></figcaption>
             <a href="season.html?season=${season}">
-                <img src="./assets/season${season}.png"></img>
+                <img src="./assets/season${season}.png" alt="Season ${season} poster"></img>
             </a>
         </figure>
     </div>`
@@ -47,8 +47,8 @@ function redirect() {
 
 const form = document.querySelector("form")
 form.innerHTML = `
-    <label for="episode-dropdown"></label>
-    <select id="episode-dropdown" name="episode-dropdown">
+    <label for="episode-selector">Episode Selector</label>
+    <select id="episode-selector" name="episode-selector">
     <option value="select" disabled selected> Select an episode</option>
         <optgroup label="Season 1"> 
             <option value="1-1">Episode 1</option>
