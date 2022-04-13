@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Puddles&display=swap');
 
 * {
-    background-image: url(./assets/background.png);
+    background-image: url(./assets/realbackground.jpg);
     color: hsl(188, 99%, 60%);
     text-shadow: 1px 1px 2px #6DC542
 }
