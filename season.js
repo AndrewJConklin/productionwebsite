@@ -1,31 +1,28 @@
-const episodeList = document.querySelector("#episode-list")
 const url = "https://api.tvmaze.com/shows/216/episodes"
-
-const navigatedURl = new URL(window.location)
-const queryString = new URLSearchParams(navigatedURl.search)
+const navigatedUrl = new URL(window.location)
+const queryString = new URLSearchParams(navigatedUrl.search)
 const currentSeason = queryString.get("season")
 
-fetch(url)
-    .then(response => response.json())
-    .then(parsedResponse =>
-        parsedResponse.filter(episode => {
+createSeasonHeader()
+updateButtons()
+hideButton()
+
+
+fetchAndParse(url)
+    .then(allEpisodeList => {
+        allEpisodeList.filter(episode => {
             return episode.season === +currentSeason === true
-        }).map(filteredEpisode => {
-            return createLi(filteredEpisode)
-        }).forEach(episodeLi => {
-            episodeList.append(episodeLi)
-            const loader = document.querySelector(".loader")
-            loader.classList.add("remove")
-        })
-    )
+        }).map(filteredEpisodeList => {
+            return createEpisodeLi(filteredEpisodeList)
+        }).forEach(episodeLi => appendLi(episodeLi))
+        removeLoader()
+    }).catch(error => {
+        location.href = `404.html`
+    })
 
-
-const header = document.querySelector("#season-header")
-header.textContent = `Season ${currentSeason}`
-
-function createLi(episode) {
-    const li = document.createElement("li")
-    li.innerHTML = `
+function createEpisodeLi(episode) {
+    const episodeLi = document.createElement("li")
+    episodeLi.innerHTML = `
     <div class="episode-listing">
         <figure>
             <figcaption>
@@ -37,22 +34,36 @@ function createLi(episode) {
             ${episode.summary}
         </figure>
     </div>`
-    return li
+    return episodeLi
 }
 
-const next = document.querySelector("#next")
-const previous = document.querySelector("#previous")
-next.addEventListener("click", event => {
-    event.preventDefault()
-    location.href = `season.html?season=${(+currentSeason + 1)}`
-})
+function appendLi(episodeLi) {
+    const $episodeList = document.querySelector("#episode-list")
+    $episodeList.append(episodeLi)
+}
 
-previous.addEventListener("click", event => {
-    event.preventDefault()
-    location.href = `season.html?season=${(+currentSeason - 1)}`
-})
+function createSeasonHeader() {
+    const header = document.querySelector("#season-header")
+    header.textContent = `Season ${currentSeason}`
+}
 
-function buttonHider() {
+function updateButtons() {
+    const next = document.querySelector("#next")
+    const previous = document.querySelector("#previous")
+    next.addEventListener("click", event => {
+        event.preventDefault()
+        location.href = `season.html?season=${(+currentSeason + 1)}`
+    })
+
+    previous.addEventListener("click", event => {
+        event.preventDefault()
+        location.href = `season.html?season=${(+currentSeason - 1)}`
+    })
+}
+
+function hideButton() {
+    const next = document.querySelector("#next")
+    const previous = document.querySelector("#previous")
     if (+currentSeason === 5) {
         next.classList.add("hidden")
     }
@@ -61,4 +72,11 @@ function buttonHider() {
     }
 }
 
-buttonHider()
+function removeLoader() {
+    const loader = document.querySelector(".loader")
+    loader.classList.add("remove")
+}
+
+function fetchAndParse(url) {
+    return fetch(url).then(response => response.json())
+}

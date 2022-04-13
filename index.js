@@ -1,18 +1,18 @@
-const seasonList = document.querySelector("#season-list")
-const seasons = [1, 2, 3, 4, 5]
 url = "https://api.tvmaze.com/lookup/shows?imdb=tt2861424"
+const seasons = [1, 2, 3, 4, 5]
 
 seasons.forEach(season => {
+    const seasonList = document.querySelector("#season-list")
     seasonList.append(createLi(season))
 });
 
-fetchAndParse(url).then(response => {
-    const summary = response.summary
-    const div = document.querySelector("#summary")
-    div.innerHTML = `${summary}`
-    const loader = document.querySelector(".loader")
-    loader.classList.add("remove")
-})
+fetchAndParse(url)
+    .then(response => {
+        addSummary(response)
+        removeLoader()
+    }).catch(error => {
+        location.href = `404.html`
+    })
 
 function createLi(season) {
     const li = document.createElement("li")
@@ -30,4 +30,15 @@ function createLi(season) {
 
 function fetchAndParse(url) {
     return fetch(url).then(response => response.json())
+}
+
+function removeLoader() {
+    const loader = document.querySelector(".loader")
+    loader.classList.add("remove")
+}
+
+function addSummary(response) {
+    const summary = response.summary
+    const div = document.querySelector("#summary")
+    div.innerHTML = `${summary}`
 }
