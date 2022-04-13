@@ -10,9 +10,7 @@ fetchAndParse(url)
     .then(response => {
         addSummary(response)
         removeLoader()
-    }).catch(error => {
-        location.href = `404.html`
-    })
+    }).catch(redirect)
 
 function createLi(season) {
     const li = document.createElement("li")
@@ -41,4 +39,8 @@ function addSummary(response) {
     const summary = response.summary
     const div = document.querySelector("#summary")
     div.innerHTML = `${summary}`
+}
+
+function redirect() {
+    window.location.href = `404.html`
 }

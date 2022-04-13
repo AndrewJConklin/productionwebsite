@@ -25,9 +25,7 @@ fetchAndParse(`https://rickandmortyapi.com/api/episode/${episodeIdMap(currentSea
             const characterList = document.querySelector(".characters")
             characterList.append(characterLi)
         })
-    ).catch(error => {
-        location.href = `404.html`
-    })
+    ).catch(redirect)
 
 function createEpisodeDiv(episode) {
     const div = document.querySelector("#episode-info")
@@ -82,4 +80,8 @@ function removeLoader() {
 
 function fetchAndParse(url) {
     return fetch(url).then(response => response.json())
+}
+
+function redirect() {
+    window.location.href = `404.html`
 }

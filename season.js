@@ -16,9 +16,7 @@ fetchAndParse(url)
             return createEpisodeLi(filteredEpisodeList)
         }).forEach(episodeLi => appendLi(episodeLi))
         removeLoader()
-    }).catch(error => {
-        location.href = `404.html`
-    })
+    }).catch(redirect)
 
 function createEpisodeLi(episode) {
     const episodeLi = document.createElement("li")
@@ -79,4 +77,8 @@ function removeLoader() {
 
 function fetchAndParse(url) {
     return fetch(url).then(response => response.json())
+}
+
+function redirect() {
+    window.location.href = `404.html`
 }
