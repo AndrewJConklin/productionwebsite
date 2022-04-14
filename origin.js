@@ -1,6 +1,6 @@
 const navigatedUrl = new URL(window.location)
 const queryString = new URLSearchParams(navigatedUrl.search)
-const currentLocation = queryString.get("location")
+const currentLocation = queryString.get('location')
 
 fetchAndParse(`https://rickandmortyapi.com/api/location/${currentLocation}`)
     .then(locationInfo => {
@@ -11,7 +11,7 @@ fetchAndParse(`https://rickandmortyapi.com/api/location/${currentLocation}`)
         return Promise.all(characterFetches)
     }).then(characterArray => {
         if (characterArray.length === 0) {
-            const characterList = document.querySelector(".characters")
+            const characterList = document.querySelector('.characters')
             characterList.innerHTML = `
                 <p id="alone">Sorry, you are all alone here.</p>
                 `
@@ -21,15 +21,15 @@ fetchAndParse(`https://rickandmortyapi.com/api/location/${currentLocation}`)
                 console.log(character)
                 return createLi(character)
             }).forEach(characterLi => {
-                const characterList = document.querySelector(".characters")
+                const characterList = document.querySelector('.characters')
                 characterList.append(characterLi)
             })
         }
     }).catch(redirect)
 
 function createLocationDiv(location) {
-    const div = document.querySelector("#origin-info")
-    const storedName = localStorage.getItem("userName")
+    const div = document.querySelector('#origin-info')
+    const storedName = localStorage.getItem('userName')
     div.innerHTML = `
         <p class="hello-message">Hello ${storedName}! Through complex calculations, we have determined that your origin is ${location.name}! ${location.name} is a ${location.type} located in the ${location.dimension}.</p>
         `
@@ -40,12 +40,12 @@ function fetchAndParse(url) {
 }
 
 function removeLoader() {
-    const loader = document.querySelector(".loader")
-    loader.classList.add("remove")
+    const loader = document.querySelector('.loader')
+    loader.classList.add('remove')
 }
 
 function createLi(character) {
-    const li = document.createElement("li")
+    const li = document.createElement('li')
     li.innerHTML = `
     <div class="character-listing">
         <figure>
@@ -59,10 +59,10 @@ function createLi(character) {
 }
 
 function redirect() {
-    window.location.href = `404.html`
+    window.location.href = '404.html'
 }
 
-const episodeForm = document.querySelector("#episode-dropdown")
+const episodeForm = document.querySelector('#episode-dropdown')
 episodeForm.innerHTML = `
     <label for="episode-selector">Episode Selector</label>
     <select id="episode-selector" name="episode-selector">
@@ -131,7 +131,7 @@ episodeForm.innerHTML = `
     </select>
 `
 
-episodeForm.addEventListener("change", (event) => {
+episodeForm.addEventListener('change', (event) => {
     event.preventDefault()
     const selection = event.target.value
     const season = selection.split('-')[0]

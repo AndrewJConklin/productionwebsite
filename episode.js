@@ -1,16 +1,14 @@
-const url = "https://api.tvmaze.com/shows/216/episodes"
+const url = 'https://api.tvmaze.com/shows/216/episodes'
 const navigatedUrl = new URL(window.location)
 const queryString = new URLSearchParams(navigatedUrl.search)
-const currentSeason = queryString.get("season")
-const currentEpisode = queryString.get("episode")
+const currentSeason = queryString.get('season')
+const currentEpisode = queryString.get('episode')
 
 fetchAndParse(url)
     .then(allEpisodeList => {
         const thisEpisode = findCurrentEpisode(allEpisodeList)
         createEpisodeDiv(thisEpisode)
-    }).catch(error => {
-        location.href = `404.html`
-    })
+    }).catch(redirect)
 
 fetchAndParse(`https://rickandmortyapi.com/api/episode/${episodeIdMap(currentSeason, currentEpisode)}`)
     .then(episode => {
@@ -22,17 +20,17 @@ fetchAndParse(`https://rickandmortyapi.com/api/episode/${episodeIdMap(currentSea
         characterArray.map(character => {
             return createLi(character)
         }).forEach(characterLi => {
-            const characterList = document.querySelector(".characters")
+            const characterList = document.querySelector('.characters')
             characterList.append(characterLi)
         })
     ).catch(redirect)
 
 function createEpisodeDiv(episode) {
-    const div = document.querySelector("#episode-info")
+    const div = document.querySelector('#episode-info')
     div.innerHTML = `
         <h2>Season ${currentSeason}</h2>
         <h2>Episode ${currentEpisode} - ${episode.name} </h2>
-        <img src="${episode.image.original}"/></img>
+        <img src="${episode.image.original}" alt="Still from ${episode.name}"></img>
         <p class="episode-description">${episode.summary}</p>`
 }
 
@@ -43,7 +41,7 @@ function findCurrentEpisode(episodeList) {
 }
 
 function createLi(character) {
-    const li = document.createElement("li")
+    const li = document.createElement('li')
     li.innerHTML = `
     <div class="character-listing">
         <figure>
@@ -75,8 +73,8 @@ function episodeIdMap(season, episodeNumber) {
 }
 
 function removeLoader() {
-    const loader = document.querySelector(".loader")
-    loader.classList.add("remove")
+    const loader = document.querySelector('.loader')
+    loader.classList.add('remove')
 }
 
 function fetchAndParse(url) {
@@ -84,10 +82,10 @@ function fetchAndParse(url) {
 }
 
 function redirect() {
-    window.location.href = `404.html`
+    window.location.href = '404.html'
 }
 
-const episodeForm = document.querySelector("#episode-dropdown")
+const episodeForm = document.querySelector('#episode-dropdown')
 episodeForm.innerHTML = `
     <label for="episode-selector">Episode Selector</label>
     <select id="episode-selector" name="episode-selector">
@@ -156,11 +154,10 @@ episodeForm.innerHTML = `
     </select>
 `
 
-episodeForm.addEventListener("change", (event) => {
+episodeForm.addEventListener('change', (event) => {
     event.preventDefault()
     const selection = event.target.value
     const season = selection.split('-')[0]
     const episode = selection.split('-')[1]
     window.location.href = `episode.html?season=${season}&episode=${episode}`
 })
-

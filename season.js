@@ -1,12 +1,11 @@
-const url = "https://api.tvmaze.com/shows/216/episodes"
+const url = 'https://api.tvmaze.com/shows/216/episodes'
 const navigatedUrl = new URL(window.location)
 const queryString = new URLSearchParams(navigatedUrl.search)
-const currentSeason = queryString.get("season")
+const currentSeason = queryString.get('season')
 
 createSeasonHeader()
 updateButtons()
 hideButton()
-
 
 fetchAndParse(url)
     .then(allEpisodeList => {
@@ -19,7 +18,7 @@ fetchAndParse(url)
     }).catch(redirect)
 
 function createEpisodeLi(episode) {
-    const episodeLi = document.createElement("li")
+    const episodeLi = document.createElement('li')
     episodeLi.innerHTML = `
     <div class="episode-listing">
         <figure>
@@ -27,7 +26,7 @@ function createEpisodeLi(episode) {
                 <a href="episode.html?season=${currentSeason}&episode=${episode.number}">Episode ${episode.number} - ${episode.name}</a>
             </figcaption>
             <a href="episode.html?season=${currentSeason}&episode=${episode.number}">
-                <img src="${episode.image.original}"/></img>
+                <img src="${episode.image.original}" alt="Still from ${episode.name}"></img>
             </a>
             ${episode.summary}
         </figure>
@@ -36,43 +35,43 @@ function createEpisodeLi(episode) {
 }
 
 function appendLi(episodeLi) {
-    const $episodeList = document.querySelector("#episode-list")
+    const $episodeList = document.querySelector('#episode-list')
     $episodeList.append(episodeLi)
 }
 
 function createSeasonHeader() {
-    const header = document.querySelector("#season-header")
+    const header = document.querySelector('#season-header')
     header.textContent = `Season ${currentSeason}`
 }
 
 function updateButtons() {
-    const next = document.querySelector("#next")
-    const previous = document.querySelector("#previous")
-    next.addEventListener("click", event => {
+    const next = document.querySelector('#next')
+    const previous = document.querySelector('#previous')
+    next.addEventListener('click', event => {
         event.preventDefault()
         location.href = `season.html?season=${(+currentSeason + 1)}`
     })
 
-    previous.addEventListener("click", event => {
+    previous.addEventListener('click', event => {
         event.preventDefault()
         location.href = `season.html?season=${(+currentSeason - 1)}`
     })
 }
 
 function hideButton() {
-    const next = document.querySelector("#next")
-    const previous = document.querySelector("#previous")
+    const next = document.querySelector('#next')
+    const previous = document.querySelector('#previous')
     if (+currentSeason === 5) {
-        next.classList.add("hidden")
+        next.classList.add('hidden')
     }
     else if (+currentSeason === 1) {
-        previous.classList.add("hidden")
+        previous.classList.add('hidden')
     }
 }
 
 function removeLoader() {
-    const loader = document.querySelector(".loader")
-    loader.classList.add("remove")
+    const loader = document.querySelector('.loader')
+    loader.classList.add('remove')
 }
 
 function fetchAndParse(url) {
@@ -80,10 +79,10 @@ function fetchAndParse(url) {
 }
 
 function redirect() {
-    window.location.href = `404.html`
+    window.location.href = '404.html'
 }
 
-const form = document.querySelector("form")
+const form = document.querySelector('form')
 form.innerHTML = `
     <label for="episode-selector">Episode Selector</label>
     <select id="episode-selector" name="episode-selector">
@@ -152,7 +151,7 @@ form.innerHTML = `
     </select>
 `
 
-form.addEventListener("change", (event) => {
+form.addEventListener('change', (event) => {
     event.preventDefault()
     const selection = event.target.value
     const season = selection.split('-')[0]

@@ -1,10 +1,10 @@
-url = "https://api.tvmaze.com/lookup/shows?imdb=tt2861424"
+const url = 'https://api.tvmaze.com/lookup/shows?imdb=tt2861424'
 const seasons = [1, 2, 3, 4, 5]
 
 seasons.forEach(season => {
-    const seasonList = document.querySelector("#season-list")
+    const seasonList = document.querySelector('#season-list')
     seasonList.append(createLi(season))
-});
+})
 
 fetchAndParse(url)
     .then(response => {
@@ -13,7 +13,7 @@ fetchAndParse(url)
     }).catch(redirect)
 
 function createLi(season) {
-    const li = document.createElement("li")
+    const li = document.createElement('li')
     li.innerHTML = `
     <div>
         <figure>
@@ -31,21 +31,21 @@ function fetchAndParse(url) {
 }
 
 function removeLoader() {
-    const loader = document.querySelector(".loader")
-    loader.classList.add("remove")
+    const loader = document.querySelector('.loader')
+    loader.classList.add('remove')
 }
 
 function addSummary(response) {
     const summary = response.summary
-    const div = document.querySelector("#summary")
+    const div = document.querySelector('#summary')
     div.innerHTML = `${summary}`
 }
 
 function redirect() {
-    window.location.href = `404.html`
+    window.location.href = '404.html'
 }
 
-const episodeForm = document.querySelector("#episode-dropdown")
+const episodeForm = document.querySelector('#episode-dropdown')
 episodeForm.innerHTML = `
     <label for="episode-selector">Episode Selector</label>
     <select id="episode-selector" name="episode-selector">
@@ -114,7 +114,7 @@ episodeForm.innerHTML = `
     </select>
 `
 
-episodeForm.addEventListener("change", (event) => {
+episodeForm.addEventListener('change', (event) => {
     event.preventDefault()
     const selection = event.target.value
     const season = selection.split('-')[0]
@@ -122,17 +122,17 @@ episodeForm.addEventListener("change", (event) => {
     window.location.href = `episode.html?season=${season}&episode=${episode}`
 })
 
-const nameForm = document.querySelector("#name-form")
+const nameForm = document.querySelector('#name-form')
 nameForm.innerHTML = `
     <label for="name">Enter your first name:</label>
     <input type="text" name="name" id="name" required/>
     <input type="submit" value="Find origin!" />
 `
-nameForm.addEventListener("submit", (event) => {
+nameForm.addEventListener('submit', (event) => {
     event.preventDefault()
     const formData = new FormData(event.target)
-    const userName = formData.get("name")
-    localStorage.setItem("userName", userName)
+    const userName = formData.get('name')
+    localStorage.setItem('userName', userName)
     const randomizedNumber = Math.floor(Math.random() * 126) + 1
     window.location.href = `origin.html?location=${randomizedNumber}`
 })
