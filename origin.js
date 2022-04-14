@@ -1,45 +1,48 @@
-const url = "https://api.tvmaze.com/shows/216/episodes"
 const navigatedUrl = new URL(window.location)
 const queryString = new URLSearchParams(navigatedUrl.search)
-const currentSeason = queryString.get("season")
-const currentEpisode = queryString.get("episode")
+const currentLocation = queryString.get("location")
 
-fetchAndParse(url)
-    .then(allEpisodeList => {
-        const thisEpisode = findCurrentEpisode(allEpisodeList)
-        createEpisodeDiv(thisEpisode)
-    }).catch(error => {
-        location.href = `404.html`
-    })
-
-fetchAndParse(`https://rickandmortyapi.com/api/episode/${episodeIdMap(currentSeason, currentEpisode)}`)
-    .then(episode => {
+fetchAndParse(`https://rickandmortyapi.com/api/location/${currentLocation}`)
+    .then(locationInfo => {
         removeLoader()
-        const characterFetches = episode.characters
+        createLocationDiv(locationInfo)
+        const characterFetches = locationInfo.residents
             .map(characterUrl => fetchAndParse(characterUrl))
         return Promise.all(characterFetches)
-    }).then(characterArray =>
-        characterArray.map(character => {
-            return createLi(character)
-        }).forEach(characterLi => {
+    }).then(characterArray => {
+        if (characterArray.length === 0) {
             const characterList = document.querySelector(".characters")
-            characterList.append(characterLi)
-        })
-    ).catch(redirect)
+            characterList.innerHTML = `
+                <p id="alone">Sorry, you are all alone here</p>
+                `
+        }
+        else {
+            characterArray.map(character => {
+                console.log(character)
+                return createLi(character)
+            }).forEach(characterLi => {
+                const characterList = document.querySelector(".characters")
+                characterList.append(characterLi)
+            })
+        }
+    }).catch(redirect)
 
-function createEpisodeDiv(episode) {
-    const div = document.querySelector("#episode-info")
+function createLocationDiv(location) {
+    const div = document.querySelector("#origin-info")
+    const storedName = localStorage.getItem("userName")
     div.innerHTML = `
-        <h2>Season ${currentSeason}</h2>
-        <h2>Episode ${currentEpisode} - ${episode.name} </h2>
-        <img src="${episode.image.original}"/></img>
-        <p class="episode-description">${episode.summary}</p>`
+        <h2>Hello ${storedName}! Through complex calculations, we have determined that your origin is ${location.name}! See below for more information!</h2>
+        <h2>${location.name} is a ${location.type} located in the ${location.dimension}.</h2>
+        `
 }
 
-function findCurrentEpisode(episodeList) {
-    return episodeList.find(episode => {
-        return (episode.season === +currentSeason === true && episode.number === +currentEpisode === true)
-    })
+function fetchAndParse(url) {
+    return fetch(url).then(response => response.json())
+}
+
+function removeLoader() {
+    const loader = document.querySelector(".loader")
+    loader.classList.add("remove")
 }
 
 function createLi(character) {
@@ -54,33 +57,6 @@ function createLi(character) {
         </figure>
     </div>`
     return li
-}
-
-function episodeIdMap(season, episodeNumber) {
-    if (+currentSeason === 1) {
-        return +currentEpisode
-    }
-    else if (+currentSeason === 2) {
-        return (+currentEpisode + 11)
-    }
-    else if (+currentSeason === 3) {
-        return (+currentEpisode + 21)
-    }
-    else if (+currentSeason === 4) {
-        return (+currentEpisode + 31)
-    }
-    else {
-        return (+currentEpisode + 41)
-    }
-}
-
-function removeLoader() {
-    const loader = document.querySelector(".loader")
-    loader.classList.add("remove")
-}
-
-function fetchAndParse(url) {
-    return fetch(url).then(response => response.json())
 }
 
 function redirect() {
@@ -163,4 +139,3 @@ episodeForm.addEventListener("change", (event) => {
     const episode = selection.split('-')[1]
     window.location.href = `episode.html?season=${season}&episode=${episode}`
 })
-

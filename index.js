@@ -133,6 +133,6 @@ nameForm.addEventListener("submit", (event) => {
     const formData = new FormData(event.target)
     const userName = formData.get("name")
     localStorage.setItem("userName", userName)
-    const storedName = localStorage.getItem("userName")
-    event.target.reset()
+    const randomizedNumber = Math.floor(Math.random() * 126) + 1
+    window.location.href = `origin.html?location=${randomizedNumber}`
 })
