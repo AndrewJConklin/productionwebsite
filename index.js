@@ -125,7 +125,7 @@ episodeForm.addEventListener("change", (event) => {
 const nameForm = document.querySelector("#name-form")
 nameForm.innerHTML = `
     <label for="name">Enter your first name:</label>
-    <input type="text" name="name" id="name" />
+    <input type="text" name="name" id="name" required/>
     <input type="submit" value="Find origin!" />
 `
 nameForm.addEventListener("submit", (event) => {

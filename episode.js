@@ -48,7 +48,7 @@ function createLi(character) {
     <div class="character-listing">
         <figure>
             <figcaption>${character.name}</figcaption>
-            <img src="${character.image}"/></img>
+            <img src="${character.image}" alt="${character.name} Picture"></img>
             <p class="species">Species: ${character.species}</p>
             <p class="location">Origin: ${character.origin.name}<p>
         </figure>

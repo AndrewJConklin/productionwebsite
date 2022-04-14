@@ -13,7 +13,7 @@ fetchAndParse(`https://rickandmortyapi.com/api/location/${currentLocation}`)
         if (characterArray.length === 0) {
             const characterList = document.querySelector(".characters")
             characterList.innerHTML = `
-                <p id="alone">Sorry, you are all alone here</p>
+                <p id="alone">Sorry, you are all alone here.</p>
                 `
         }
         else {
@@ -31,8 +31,7 @@ function createLocationDiv(location) {
     const div = document.querySelector("#origin-info")
     const storedName = localStorage.getItem("userName")
     div.innerHTML = `
-        <h2>Hello ${storedName}! Through complex calculations, we have determined that your origin is ${location.name}! See below for more information!</h2>
-        <h2>${location.name} is a ${location.type} located in the ${location.dimension}.</h2>
+        <p class="hello-message">Hello ${storedName}! Through complex calculations, we have determined that your origin is ${location.name}! ${location.name} is a ${location.type} located in the ${location.dimension}.</p>
         `
 }
 
@@ -51,7 +50,7 @@ function createLi(character) {
     <div class="character-listing">
         <figure>
             <figcaption>${character.name}</figcaption>
-            <img src="${character.image}"/></img>
+            <img src="${character.image}" alt="${character.name} Picture"></img>
             <p class="species">Species: ${character.species}</p>
             <p class="location">Origin: ${character.origin.name}<p>
         </figure>

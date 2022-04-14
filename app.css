@@ -16,6 +16,7 @@ header {
 
 h1 {
     margin: 12px;
+    position: relative;
 }
 
 h1 a {
@@ -28,16 +29,23 @@ h1 a {
 }
 
 #episode-dropdown {
-    background-color: black;
-    width: 150px;
-    justify-self: flex-end;
+    font-size: 24px;
+    width: 250px;
+    position: absolute;
+    right: 50px;
+    top: 50px;
 }
 
-label,
+label {
+    width: 100%;
+    font-size: 24px;
+}
+
 select,
 input,
 option {
     width: 100%;
+    font-size: 20px;
 }
 
 h2 {
@@ -58,9 +66,14 @@ main {
     justify-content: center;
 }
 
-p {
+#summary p {
     width: 60%;
 }
+
+#name-form {
+    margin-bottom: 150px;
+}
+
 
 /* Season CSS */
 
@@ -170,4 +183,25 @@ p {
 
 .remove {
     display: none;
+}
+
+/* Origin CSS */
+#origin-info {
+    display: flex;
+    justify-content: center;
+}
+
+.hello-message {
+    font-size: 24px;
+    width: 60%
+}
+
+#alone {
+    font-size: 24px;
+    width: 100%;
+}
+
+/* 404 CSS */
+#error-message {
+    font-size: 30px;
 }
