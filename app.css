@@ -16,7 +16,6 @@ header {
 
 h1 {
     margin: 12px;
-    position: relative;
 }
 
 h1 a {
@@ -31,13 +30,13 @@ h1 a {
 #episode-dropdown {
     background-color: black;
     width: 150px;
-    position: absolute;
-    right: 150px;
-    top: 40px
+    justify-self: flex-end;
 }
 
 label,
-select {
+select,
+input,
+option {
     width: 100%;
 }
 

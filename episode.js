@@ -87,8 +87,8 @@ function redirect() {
     window.location.href = `404.html`
 }
 
-const form = document.querySelector("form")
-form.innerHTML = `
+const episodeForm = document.querySelector("#episode-dropdown")
+episodeForm.innerHTML = `
     <label for="episode-selector">Episode Selector</label>
     <select id="episode-selector" name="episode-selector">
     <option value="select" disabled selected> Select an episode</option>
@@ -156,10 +156,11 @@ form.innerHTML = `
     </select>
 `
 
-form.addEventListener("change", (event) => {
+episodeForm.addEventListener("change", (event) => {
     event.preventDefault()
     const selection = event.target.value
     const season = selection.split('-')[0]
     const episode = selection.split('-')[1]
     window.location.href = `episode.html?season=${season}&episode=${episode}`
 })
+

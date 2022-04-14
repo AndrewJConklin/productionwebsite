@@ -45,8 +45,8 @@ function redirect() {
     window.location.href = `404.html`
 }
 
-const form = document.querySelector("form")
-form.innerHTML = `
+const episodeForm = document.querySelector("#episode-dropdown")
+episodeForm.innerHTML = `
     <label for="episode-selector">Episode Selector</label>
     <select id="episode-selector" name="episode-selector">
     <option value="select" disabled selected> Select an episode</option>
@@ -114,10 +114,25 @@ form.innerHTML = `
     </select>
 `
 
-form.addEventListener("change", (event) => {
+episodeForm.addEventListener("change", (event) => {
     event.preventDefault()
     const selection = event.target.value
     const season = selection.split('-')[0]
     const episode = selection.split('-')[1]
     window.location.href = `episode.html?season=${season}&episode=${episode}`
+})
+
+const nameForm = document.querySelector("#name-form")
+nameForm.innerHTML = `
+    <label for="name">Enter your first name:</label>
+    <input type="text" name="name" id="name" />
+    <input type="submit" value="Find origin!" />
+`
+nameForm.addEventListener("submit", (event) => {
+    event.preventDefault()
+    const formData = new FormData(event.target)
+    const userName = formData.get("name")
+    localStorage.setItem("userName", userName)
+    const storedName = localStorage.getItem("userName")
+    event.target.reset()
 })
