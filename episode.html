@@ -14,7 +14,12 @@
 <body>
     <header>
         <h1><a href="./index.html">The Rick and Morty Library</a></h1>
-        <form id="episode-dropdown"></form>
+        <form id="episode-dropdown">
+            <label for="episode-selector">Episode Selector</label>
+            <select id="episode-selector" name="episode-selector">
+                <option value="select" disabled selected> Select an episode</option>
+            </select>
+        </form>
     </header>
     <main>
         <img class="loader" src="./assets/loader.gif" alt="loader">

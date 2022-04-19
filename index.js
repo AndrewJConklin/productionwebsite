@@ -1,6 +1,9 @@
 const url = 'https://api.tvmaze.com/lookup/shows?imdb=tt2861424'
 const episodesUrl = 'https://api.tvmaze.com/shows/216/episodes'
 
+createNameForm()
+addNameFormEvent()
+
 fetchAndParse(episodesUrl)
     .then(allEpisodeList => {
         const seasonsListed = allEpisodeList.map(episode => episode.season)
@@ -9,11 +12,13 @@ fetchAndParse(episodesUrl)
             const seasonList = document.querySelector('#season-list')
             seasonList.append(createLi(season))
         })
+        createDropDown(allEpisodeList)
+        addDropdownEvent()
     }).catch(redirect)
 
 fetchAndParse(url)
-    .then(response => {
-        addSummary(response)
+    .then(showInformation => {
+        addSummary(showInformation)
         removeLoader()
     }).catch(redirect)
 
@@ -47,95 +52,64 @@ function addSummary(response) {
 function redirect() {
     window.location.href = '404.html'
 }
+function createDropDown(episodeList) {
+    const seasonsListed = episodeList.map(episode => episode.season)
+    const uniqueSeasons = [...new Set(seasonsListed)]
+    uniqueSeasons.forEach(season => {
+        const select = document.querySelector("#episode-selector")
+        const optGroup = createOptGroup(season)
+        select.append(optGroup)
+        const filteredEpisodes = episodeList.filter(episode => {
+            return episode.season === season === true
+        })
+        filteredEpisodes.forEach(episode => {
+            const option = createOption(episode)
+            optGroup.append(option)
+        })
+    })
+}
 
-const episodeForm = document.querySelector('#episode-dropdown')
-episodeForm.innerHTML = `
-    <label for="episode-selector">Episode Selector</label>
-    <select id="episode-selector" name="episode-selector">
-    <option value="select" disabled selected> Select an episode</option>
-        <optgroup label="Season 1"> 
-            <option value="1-1">Episode 1</option>
-            <option value="1-2">Episode 2</option>
-            <option value="1-3">Episode 3</option>
-            <option value="1-4">Episode 4</option>
-            <option value="1-5">Episode 5</option>
-            <option value="1-6">Episode 6</option>
-            <option value="1-7">Episode 7</option>
-            <option value="1-8">Episode 8</option>
-            <option value="1-9">Episode 9</option>
-            <option value="1-10">Episode 10</option>
-            <option value="1-11">Episode 11</option>
-        </optgroup>
-        <optgroup label="Season 2"> 
-            <option value="2-1">Episode 1</option>
-            <option value="2-2">Episode 2</option>
-            <option value="2-3">Episode 3</option>
-            <option value="2-4">Episode 4</option>
-            <option value="2-5">Episode 5</option>
-            <option value="2-6">Episode 6</option>
-            <option value="2-7">Episode 7</option>
-            <option value="2-8">Episode 8</option>
-            <option value="2-9">Episode 9</option>
-            <option value="2-10">Episode 10</option>
-        </optgroup>
-        <optgroup label="Season 3"> 
-            <option value="3-1">Episode 1</option>
-            <option value="3-2">Episode 2</option>
-            <option value="3-3">Episode 3</option>
-            <option value="3-4">Episode 4</option>
-            <option value="3-5">Episode 5</option>
-            <option value="3-6">Episode 6</option>
-            <option value="3-7">Episode 7</option>
-            <option value="3-8">Episode 8</option>
-            <option value="3-9">Episode 9</option>
-            <option value="3-10">Episode 10</option>
-        </optgroup>
-        <optgroup label="Season 4"> 
-            <option value="4-1">Episode 1</option>
-            <option value="4-2">Episode 2</option>
-            <option value="4-3">Episode 3</option>
-            <option value="4-4">Episode 4</option>
-            <option value="4-5">Episode 5</option>
-            <option value="4-6">Episode 6</option>
-            <option value="4-7">Episode 7</option>
-            <option value="4-8">Episode 8</option>
-            <option value="4-9">Episode 9</option>
-            <option value="4-10">Episode 10</option>
-        </optgroup>
-        <optgroup label="Season 5"> 
-            <option value="5-1">Episode 1</option>
-            <option value="5-2">Episode 2</option>
-            <option value="5-3">Episode 3</option>
-            <option value="5-4">Episode 4</option>
-            <option value="5-5">Episode 5</option>
-            <option value="5-6">Episode 6</option>
-            <option value="5-7">Episode 7</option>
-            <option value="5-8">Episode 8</option>
-            <option value="5-9">Episode 9</option>
-            <option value="5-10">Episode 10</option>
-        </optgroup>
-    </select>
-`
+function createOptGroup(season) {
+    const optGroup = document.createElement("optgroup")
+    optGroup.label = `Season ${season}`
+    return optGroup
+}
 
-episodeForm.addEventListener('change', (event) => {
-    event.preventDefault()
-    const selection = event.target.value
-    const season = selection.split('-')[0]
-    const episode = selection.split('-')[1]
-    window.location.href = `episode.html?season=${season}&episode=${episode}`
-})
+function createOption(episode) {
+    const option = document.createElement("option")
+    option.value = `${episode.season} - ${episode.number}`
+    option.textContent = `Episode ${episode.number}`
+    return option
+}
 
-const nameForm = document.querySelector('#name-form')
-nameForm.innerHTML = `
+function addDropdownEvent() {
+    const episodeForm = document.querySelector('#episode-dropdown')
+    episodeForm.addEventListener('change', (event) => {
+        event.preventDefault()
+        const selection = event.target.value
+        const season = selection.split('-')[0]
+        const episode = selection.split('-')[1]
+        window.location.href = `episode.html?season=${season}&episode=${episode}`
+    })
+}
+
+function createNameForm() {
+    const nameForm = document.querySelector('#name-form')
+    nameForm.innerHTML = `
     <label for="name">Enter your first name:</label>
     <input type="text" name="name" id="name" required/>
     <input type="submit" value="Find origin!" />
 `
-nameForm.addEventListener('submit', (event) => {
-    event.preventDefault()
-    const formData = new FormData(event.target)
-    const userName = formData.get('name')
-    localStorage.setItem('userName', userName)
-    const randomizedNumber = Math.floor(Math.random() * 126) + 1
-    window.location.href = `origin.html?location=${randomizedNumber}`
-})
+}
+
+function addNameFormEvent() {
+    const nameForm = document.querySelector('#name-form')
+    nameForm.addEventListener('submit', (event) => {
+        event.preventDefault()
+        const formData = new FormData(event.target)
+        const userName = formData.get('name')
+        localStorage.setItem('userName', userName)
+        const randomizedNumber = Math.floor(Math.random() * 126) + 1
+        window.location.href = `origin.html?location=${randomizedNumber}`
+    })
+}
