@@ -43,14 +43,12 @@ function findCurrentEpisode(episodeList) {
 function createLi(character) {
     const li = document.createElement('li')
     li.innerHTML = `
-    <div class="character-listing">
-        <figure>
+        <figure class="character-listing">
             <figcaption>${character.name}</figcaption>
             <img src="${character.image}" alt="${character.name} Picture"></img>
             <p class="species">Species: ${character.species}</p>
             <p class="location">Origin: ${character.origin.name}<p>
-        </figure>
-    </div>`
+        </figure>`
     return li
 }
 

@@ -1,10 +1,15 @@
 const url = 'https://api.tvmaze.com/lookup/shows?imdb=tt2861424'
-const seasons = [1, 2, 3, 4, 5]
+const episodesUrl = 'https://api.tvmaze.com/shows/216/episodes'
 
-seasons.forEach(season => {
-    const seasonList = document.querySelector('#season-list')
-    seasonList.append(createLi(season))
-})
+fetchAndParse(episodesUrl)
+    .then(allEpisodeList => {
+        const seasonsListed = allEpisodeList.map(episode => episode.season)
+        const uniqueSeasons = [...new Set(seasonsListed)]
+        uniqueSeasons.forEach(season => {
+            const seasonList = document.querySelector('#season-list')
+            seasonList.append(createLi(season))
+        })
+    }).catch(redirect)
 
 fetchAndParse(url)
     .then(response => {
@@ -15,14 +20,12 @@ fetchAndParse(url)
 function createLi(season) {
     const li = document.createElement('li')
     li.innerHTML = `
-    <div>
         <figure>
             <figcaption><a href="season.html?season=${season}">Season ${season}</a></figcaption>
             <a href="season.html?season=${season}">
                 <img src="./assets/season${season}.png" alt="Season ${season} poster"></img>
             </a>
-        </figure>
-    </div>`
+        </figure>`
     return li
 }
 

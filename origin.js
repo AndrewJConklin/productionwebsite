@@ -18,7 +18,6 @@ fetchAndParse(`https://rickandmortyapi.com/api/location/${currentLocation}`)
         }
         else {
             characterArray.map(character => {
-                console.log(character)
                 return createLi(character)
             }).forEach(characterLi => {
                 const characterList = document.querySelector('.characters')
@@ -47,14 +46,12 @@ function removeLoader() {
 function createLi(character) {
     const li = document.createElement('li')
     li.innerHTML = `
-    <div class="character-listing">
-        <figure>
+        <figure class="character-listing">
             <figcaption>${character.name}</figcaption>
             <img src="${character.image}" alt="${character.name} Picture"></img>
             <p class="species">Species: ${character.species}</p>
             <p class="location">Origin: ${character.origin.name}<p>
-        </figure>
-    </div>`
+        </figure>`
     return li
 }
 

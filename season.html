@@ -5,7 +5,8 @@
     <title>Rick and Morty Library</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/icon" href="./assets/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+    <link rel="icon" type="image/icon" href="./assets/favicon.ico" />
     <link rel="stylesheet" href="app.css" />
     <script defer src="season.js"></script>
 </head>
@@ -13,7 +14,17 @@
 <body>
     <header>
         <h1><a href="./index.html">The Rick and Morty Library</a></h1>
-        <form id="episode-dropdown"></form>
+        <form id="episode-dropdown">
+            <label for="episode-selector">Episode Selector</label>
+            <select id="episode-selector" name="episode-selector">
+                <option value="select" disabled selected> Select an episode</option>
+                <optgroup label="Season 1"></optgroup>
+                <optgroup label="Season 2"></optgroup>
+                <optgroup label="Season 3"></optgroup>
+                <optgroup label="Season 4"></optgroup>
+                <optgroup label="Season 5"></optgroup>
+            </select>
+        </form>
     </header>
     <main>
         <img class="loader" src="./assets/loader.gif" alt="loader">
